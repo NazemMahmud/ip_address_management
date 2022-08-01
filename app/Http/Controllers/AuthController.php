@@ -26,7 +26,7 @@ class AuthController extends Controller
             return HttpHandler::successResponse([
                 "email" => $user->email,
                 'message' => 'Registration done successfully.'
-            ],201);
+            ], 201);
         }
 
         return HttpHandler::errorMessage(Constants::SOMETHING_WENT_WRONG);
@@ -53,28 +53,37 @@ class AuthController extends Controller
 
     /**
      * Get the token array structure for login.
-     * @param  string $token
+     * @param string $token
      * @return JsonResponse
      */
     protected function respondWithToken(string $token): JsonResponse
     {
         return response()->json([
             'access_token' => $token,
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL()
         ]);
     }
 
 
-
-    public function refresh()
+    /**
+     * Refresh token.
+     * @return JsonResponse
+     */
+    public function refresh(): JsonResponse
     {
-        // TODO
+        return response()->json(['data' =>'checked'], 200);
     }
 
 
-    public function logout()
+    /**
+     * Logout user
+     * @return JsonResponse
+     */
+    public function logout(): JsonResponse
     {
-        // TODO
+        auth()->logout();
+
+        return HttpHandler::successMessage( 'User successfully logged out.', 200);
     }
 
 }
