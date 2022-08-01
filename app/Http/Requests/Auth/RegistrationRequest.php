@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Auth;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Helpers\RequestValidationErrorFormat;
 
-class RegistrationRequest extends FormRequest
+class RegistrationRequest extends RequestValidationErrorFormat
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class RegistrationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|min:2|max:100',
+            'email' => 'required|string|email|max:100|unique:users',
+            'password' => 'required|string|confirmed|min:6'
         ];
     }
 }

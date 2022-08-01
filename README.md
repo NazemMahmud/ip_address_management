@@ -7,6 +7,7 @@
 |-----|-------------------------------|
 | 1   | [Todos](#task-implemented)    |
 | 2   | [Installation](#installation) |
+| 3   | [Unit Test](#unit-test)       |
 
 # Todos
 1. Authentication system, which will generate an authenticated token, with all subsequent steps requiring this authenticated token.
@@ -17,3 +18,7 @@
     4. No delete action needed
 3. An audit trail should be maintained for every login, addition or change
     1. Audit log can't be modified from codebase
+
+# Unit Test
+- Command to run tests: `php artisan test`
+- Command to run tests without tty: `php artisan test --without-tty`
