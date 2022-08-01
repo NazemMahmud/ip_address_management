@@ -1,0 +1,29 @@
+# package folders
+/node_modules
+/vendor
+
+# Public/ Storage folders
+/public/hot
+/public/storage
+/storage/*.key
+
+# Environment files
+.env
+.env.backup
+
+# Unit test cache
+.phpunit.result.cache
+
+# Docker related
+docker-compose.override.yml
+docker-compose.yml
+
+# Homestead installation and debug log
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# IDE cache
+/.idea
+/.vscode
