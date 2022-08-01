@@ -20,5 +20,8 @@
     1. Audit log can't be modified from codebase
 
 # Unit Test
+Command samples to run test file/s:
 - Command to run tests: `php artisan test`
 - Command to run tests without tty: `php artisan test --without-tty`
+- Command to run a specific test file: `php artisan test --filter LoginTest`
+- Command to run a specific test file without tty: `php artisan test --without-tty --filter LoginTest`

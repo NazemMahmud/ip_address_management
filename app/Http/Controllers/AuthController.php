@@ -40,7 +40,28 @@ class AuthController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
         $requestData = $request->all();
-        // TODO
+
+        if (!$token = auth()->attempt($requestData)) {
+            return HttpHandler::errorMessage('Invalid email or password', 422);
+        }
+
+        return response()->json([
+            'data' => $this->respondWithToken($token)->original,
+            'status' => Constants::SUCCESS
+        ], 200);
+    }
+
+    /**
+     * Get the token array structure for login.
+     * @param  string $token
+     * @return JsonResponse
+     */
+    protected function respondWithToken(string $token): JsonResponse
+    {
+        return response()->json([
+            'access_token' => $token,
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
     }
 
 

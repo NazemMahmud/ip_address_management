@@ -108,7 +108,7 @@ class LoginTest extends TestCase
         $response = $this->postJson($this->loginUrl, $this->successRequestData);
         $response->assertStatus(200)
             ->assertJsonStructure([
-                'data' => ['access_token', 'refresh_token', 'expires_in'],
+                'data' => ['access_token', 'expires_in'],
                 'status'
             ])->assertJsonPath('status', Constants::SUCCESS);
     }
