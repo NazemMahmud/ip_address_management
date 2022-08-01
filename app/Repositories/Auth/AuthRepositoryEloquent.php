@@ -3,9 +3,12 @@
 namespace App\Repositories\Auth;
 
 
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 class AuthRepositoryEloquent implements AuthRepositoryInterface {
 
-    public function __construct()
+    public function __construct(protected User $model)
     {
     }
 
@@ -17,6 +20,10 @@ class AuthRepositoryEloquent implements AuthRepositoryInterface {
      */
     public function register(array $data): mixed
     {
-        // TODO
+        return $this->model::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password'])
+        ]);
     }
 }

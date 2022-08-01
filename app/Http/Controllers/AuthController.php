@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Constants;
+use App\Helpers\HttpHandler;
 use App\Http\Requests\Auth\RegistrationRequest;
 use App\Repositories\Auth\AuthRepositoryInterface;
 use Illuminate\Http\JsonResponse;
@@ -19,7 +21,14 @@ class AuthController extends Controller
      */
     public function registration(RegistrationRequest $request): JsonResponse
     {
-       // TODO
+        if ($user = $this->repository->register($request->all())) {
+            return HttpHandler::successResponse([
+                "email" => $user->email,
+                'message' => 'Registration done successfully.'
+            ],201);
+        }
+
+        return HttpHandler::errorMessage(Constants::SOMETHING_WENT_WRONG);
     }
 
 
