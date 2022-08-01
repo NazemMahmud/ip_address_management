@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Constants;
 use App\Helpers\HttpHandler;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegistrationRequest;
 use App\Repositories\Auth\AuthRepositoryInterface;
 use Illuminate\Http\JsonResponse;
@@ -31,9 +32,14 @@ class AuthController extends Controller
         return HttpHandler::errorMessage(Constants::SOMETHING_WENT_WRONG);
     }
 
-
-    public function login()
+    /**
+     * User Login
+     * @param LoginRequest $request
+     * @return JsonResponse
+     */
+    public function login(LoginRequest $request): JsonResponse
     {
+        $requestData = $request->all();
         // TODO
     }
 
