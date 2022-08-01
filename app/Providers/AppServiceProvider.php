@@ -16,6 +16,11 @@ class AppServiceProvider extends ServiceProvider
     {
         // to remove unwanted migrations
         Sanctum::ignoreMigrations();
+
+        /**
+         * Bind custom service providers
+         */
+        $this->app->register(RepositoryServiceProvider::class);
     }
 
     /**
