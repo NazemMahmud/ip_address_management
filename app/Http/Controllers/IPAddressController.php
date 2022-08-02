@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Helpers\Constants;
 use App\Helpers\HttpHandler;
 use App\Http\Requests\IpAddress\IpAddressCreateRequest;
+use App\Http\Requests\IpAddress\IpAddressUpdateRequest;
+use App\Models\IpAddress;
 use App\Repositories\IPManage\IPAddressRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -74,8 +76,21 @@ class IPAddressController extends Controller
         return HttpHandler::errorMessage(Constants::NOT_FOUND, 404);
     }
 
-    public function update(string $ip)
+    /**
+     * Update only label (IP can't be modified)
+     * @param IpAddressUpdateRequest $request
+     * @param mixed $id
+     * @return JsonResponse
+     */
+    public function update(IpAddressUpdateRequest $request, mixed $id): JsonResponse
     {
-        // TODO
+        $data['label'] = $request->input('label');
+        $conditions = ['id' => $id];
+
+        if ($this->repository->updateResource($data, $conditions)) {
+            return HttpHandler::successMessage(Constants::UPDATE_SUCCESS);
+        }
+
+        return HttpHandler::errorMessage(Constants::SOMETHING_WENT_WRONG);
     }
 }

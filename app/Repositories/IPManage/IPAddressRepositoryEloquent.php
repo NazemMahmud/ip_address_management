@@ -4,7 +4,8 @@ namespace App\Repositories\IPManage;
 
 use App\Models\IpAddress;
 
-class IPAddressRepositoryEloquent implements IPAddressRepositoryInterface {
+class IPAddressRepositoryEloquent implements IPAddressRepositoryInterface
+{
 
     public function __construct(protected IpAddress $model)
     {
@@ -38,11 +39,28 @@ class IPAddressRepositoryEloquent implements IPAddressRepositoryInterface {
     /**
      * Get single row data based on condition
      * @param string $columnName
-     * @param string $value
+     * @param mixed $value
      * @return mixed
      */
-    public function getByColumn(string $columnName, string $value): mixed
+    public function getByColumn(string $columnName, mixed $value): mixed
     {
         return $this->model::where($columnName, $value)->first();
+    }
+
+    /**
+     * update data
+     * @param array $data
+     * @param array $conditions
+     * @return mixed
+     */
+    public function updateResource(array $data, array $conditions): mixed
+    {
+
+        $query = $this->model;
+        foreach ($conditions as $key => $value) {
+            $query = $query->where($key, $value);
+        }
+
+        return $query->update($data);
     }
 }

@@ -10,6 +10,9 @@ interface IPAddressRepositoryInterface {
     public function storeResource(array $data): mixed;
 
     // get single data
-    public function getByColumn(string $columnName, string $value): mixed;
+    public function getByColumn(string $columnName, mixed $value): mixed;
+
+    // update data
+    public function updateResource(array $data, array $conditions): mixed;
 
 }
