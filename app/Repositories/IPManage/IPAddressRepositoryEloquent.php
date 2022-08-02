@@ -2,7 +2,6 @@
 
 namespace App\Repositories\IPManage;
 
-
 use App\Models\IpAddress;
 
 class IPAddressRepositoryEloquent implements IPAddressRepositoryInterface {
@@ -11,9 +10,19 @@ class IPAddressRepositoryEloquent implements IPAddressRepositoryInterface {
     {
     }
 
-    public function getAll(): mixed
+    /**
+     * Get all / paginated data
+     *
+     * @param int|null $resourcePerPage
+     * @param string $orderBy
+     * @param string $sortBy
+     * @return mixed
+     */
+    public function getAll(int|null $resourcePerPage, string $orderBy, string $sortBy): mixed
     {
-        // TODO
+        $query = $this->model::orderBy($sortBy, $orderBy);
+
+        return $resourcePerPage ? $query->paginate($resourcePerPage) : $query->get();
     }
 
     /**
@@ -24,5 +33,16 @@ class IPAddressRepositoryEloquent implements IPAddressRepositoryInterface {
     public function storeResource(array $data): mixed
     {
         return $this->model::create($data);
+    }
+
+    /**
+     * Get single row data based on condition
+     * @param string $columnName
+     * @param string $value
+     * @return mixed
+     */
+    public function getByColumn(string $columnName, string $value): mixed
+    {
+        return $this->model::where($columnName, $value)->first();
     }
 }

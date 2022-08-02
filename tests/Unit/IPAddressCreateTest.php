@@ -8,9 +8,10 @@ use Tests\TestCase;
 class IPAddressCreateTest extends TestCase
 {
 
-    /** API URL for registration */
+    /** API URL for store a new IP address */
     private string $baseUrl;
 
+    /** Authentication token */
     private string $token;
 
     /** Test data for: validation error for incorrect IP address */
@@ -33,7 +34,7 @@ class IPAddressCreateTest extends TestCase
     {
         parent::setUp();
 
-        $this->token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjU5NDAwMjA1LCJleHAiOjE2NTk0MDM4MDUsIm5iZiI6MTY1OTQwMDIwNSwianRpIjoicFVxYUtJZXFsdjFiZWJYQyIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwicGF5bG9hZCI6eyJpZCI6MSwibmFtZSI6IlVuaXQgVGVzdCBVc2VyIDEifX0.85t5MacEnIqpimbRQ-jnBO-xoh7XtafvYKI7ASmMuEw';
+        $this->token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjU5NDIxNTA4LCJleHAiOjE2NTk0MjUxMDgsIm5iZiI6MTY1OTQyMTUwOCwianRpIjoiSzFqWDJ6VjlZZU8xRk1DWCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwicGF5bG9hZCI6eyJpZCI6MSwibmFtZSI6IlVuaXQgVGVzdCBVc2VyIDEifX0.w9qj5Wcz5v9iT1_xlAjoEtem121xuejkX9Qnx3E9NbU';
 
         $this->baseUrl = env('APP_URL') . '/api/ip';
 
@@ -157,5 +158,21 @@ class IPAddressCreateTest extends TestCase
             ->assertJsonPath('error', [
                 "The ip has already been taken."
             ]);
+    }
+
+    /**
+     * Test 5: If not logged in, will give error
+     * @return void
+     */
+    public function test_token_error(): void
+    {
+        $response = $this->postJson($this->baseUrl, $this->successRequestData);
+
+        $response->assertStatus(403)
+            ->assertJsonStructure([
+                'error',
+                'status'
+            ])->assertJsonPath('status', Constants::FAILED)
+            ->assertJsonPath('error',  Constants::INVALID_TOKEN);
     }
 }
