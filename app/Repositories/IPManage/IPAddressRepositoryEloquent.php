@@ -3,9 +3,11 @@
 namespace App\Repositories\IPManage;
 
 
+use App\Models\IpAddress;
+
 class IPAddressRepositoryEloquent implements IPAddressRepositoryInterface {
 
-    public function __construct($model)
+    public function __construct(protected IpAddress $model)
     {
     }
 
@@ -14,8 +16,13 @@ class IPAddressRepositoryEloquent implements IPAddressRepositoryInterface {
         // TODO
     }
 
+    /**
+     * Store new IP address
+     * @param array $data
+     * @return mixed
+     */
     public function storeResource(array $data): mixed
     {
-        // TODO
+        return $this->model::create($data);
     }
 }

@@ -73,4 +73,11 @@ Command samples to run test file/s:
 - Command to run a specific test file: `php artisan test --filter LoginTest`
 - Command to run a specific test file without tty: `php artisan test --without-tty --filter LoginTest`
 
-**Note:** It's better to run each test file separately. Some tests results might fail because of dependency conflict. Such as, LoginTest with RegisterTest file
+### Note 1: To test any unit test file which needs a bearer token. 
+For this, 
+* At first, login with any email
+* Take the **access_token** value from it
+* Update **$this->token** value in the respective test file. Such as, for `IPAddressCreateTest` update value inside `setup()`
+
+### Note 2: 
+It's better to run each test file separately. Some tests results might fail because of dependency conflict. Such as, LoginTest with RegisterTest file
