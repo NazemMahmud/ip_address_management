@@ -73,6 +73,8 @@ Command samples to run test file/s:
 - Command to run a specific test file: `php artisan test --filter LoginTest`
 - Command to run a specific test file without tty: `php artisan test --without-tty --filter LoginTest`
 
+- To get the change in **audits** table for audit log, from the console for test: update `'console' => true,` in `config/audit.php` file
+
 ### Note 1: To test any unit test file which needs a bearer token. 
 For this, 
 * At first, login with any email

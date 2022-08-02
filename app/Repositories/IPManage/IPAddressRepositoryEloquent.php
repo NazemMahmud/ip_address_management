@@ -55,12 +55,19 @@ class IPAddressRepositoryEloquent implements IPAddressRepositoryInterface
      */
     public function updateResource(array $data, array $conditions): mixed
     {
-
+        /** For audit log, need to update using save() */
         $query = $this->model;
         foreach ($conditions as $key => $value) {
             $query = $query->where($key, $value);
         }
 
-        return $query->update($data);
+        $query = $query->first();
+
+        if (!empty($query)) {
+            $query['label'] = $data['label'];
+            return $query->save($data);
+        }
+
+        return false;
     }
 }
