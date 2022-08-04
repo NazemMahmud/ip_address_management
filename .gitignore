@@ -10,6 +10,7 @@
 # Environment files
 .env
 .env.backup
+.env.bak
 
 # Unit test cache
 .phpunit.result.cache

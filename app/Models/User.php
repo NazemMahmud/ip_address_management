@@ -54,8 +54,8 @@ class User extends Authenticatable implements JWTSubject, Auditable
     {
         return [
             'payload' => [
-                'id' => $this->id,
-                'name' => $this->name
+                'name' => $this->name,
+                'email' => $this->email
             ]
         ];
     }

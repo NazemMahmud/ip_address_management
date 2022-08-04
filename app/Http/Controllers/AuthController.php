@@ -22,11 +22,8 @@ class AuthController extends Controller
      */
     public function registration(RegistrationRequest $request): JsonResponse
     {
-        if ($user = $this->repository->register($request->all())) {
-            return HttpHandler::successResponse([
-                "email" => $user->email,
-                'message' => 'Registration done successfully.'
-            ], 201);
+        if ($this->repository->register($request->all())) {
+            return HttpHandler::successMessage('Registration done successfully.', 201);
         }
 
         return HttpHandler::errorMessage(Constants::SOMETHING_WENT_WRONG);

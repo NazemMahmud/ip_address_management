@@ -21,7 +21,9 @@ class JWTMiddleware
         try {
             $user = JWTAuth::parseToken()->authenticate();
         } catch (\Exception $e) {
-            if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+            if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
+                return HttpHandler::errorMessage(Constants::INVALID_TOKEN, 403);
+            } else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
                 return response()->json([
                     'data' => [
                         'refresh_token' => JWTAuth::refresh(JWTAuth::getToken()),
@@ -30,7 +32,7 @@ class JWTMiddleware
                     'status' => Constants::FAILED
                 ], 401);
             } else {
-                return HttpHandler::errorMessage(Constants::INVALID_TOKEN, 403);
+                return HttpHandler::errorMessage(Constants::TOKEN_NOT_FOUND, 404);
             }
         }
 

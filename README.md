@@ -1,5 +1,5 @@
 # About
-**IP Address Management Solution**
+**IP Address Management Solution Backend**
 
 # Table of Contents
 
@@ -8,6 +8,8 @@
 | 1   | [Todos](#task-implemented)    |
 | 2   | [Installation](#installation) |
 | 3   | [Unit Test](#unit-test)       |
+| 4   | [Postman](#postman)           |
+
 
 # Todos
 1. Authentication system, which will generate an authenticated token, with all subsequent steps requiring this authenticated token.
@@ -83,3 +85,9 @@ For this,
 
 ### Note 2: 
 It's better to run each test file separately. Some tests results might fail because of dependency conflict. Such as, LoginTest with RegisterTest file
+
+
+# Postman
+- **Postman API collection** is provided here: `IP address management.postman_collection.json`
+  **For environment Variable**,
+- Set **BASE_URL** like, `http://localhost:port/api` 
