@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\IpAddress;
+namespace App\Http\Resources\AuditLog;
 
 use App\Helpers\Constants;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class IpAddressResourceCollection extends ResourceCollection
+class AuditLogResourceCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

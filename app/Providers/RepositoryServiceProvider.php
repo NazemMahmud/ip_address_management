@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\AuditLog\AuditLogRepositoryEloquent;
+use App\Repositories\AuditLog\AuditLogRepositoryInterface;
 use App\Repositories\Auth\AuthRepositoryEloquent;
 use App\Repositories\Auth\AuthRepositoryInterface;
 use App\Repositories\BaseRepositoryEloquent;
@@ -32,5 +34,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(AuthRepositoryInterface::class, AuthRepositoryEloquent::class);
         $this->app->bind(IPAddressRepositoryInterface::class, IPAddressRepositoryEloquent::class);
         $this->app->bind(BaseRepositoryInterface::class, BaseRepositoryEloquent::class);
+        $this->app->bind(AuditLogRepositoryInterface::class, AuditLogRepositoryEloquent::class);
     }
 }

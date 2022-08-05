@@ -2,7 +2,8 @@
 
 namespace App\Repositories\IPManage;
 
-interface IPAddressRepositoryInterface {
+interface IPAddressRepositoryInterface
+{
 
     // store a new one
     public function storeResource(array $data): mixed;
