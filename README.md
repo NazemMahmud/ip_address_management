@@ -47,8 +47,14 @@ If you want to use docker to run this project
 - DB_PASSWORD must be provided. Already a password is provided in env.example. Change if you want to give your own password.
 - Other DB configuration change if you want to provide your own.
 ```
-5. Build and up the docker containers. run `docker compose up -d`
-6. Now, go to the shell of **php** container: run `docker compose exec php sh`
+5. In case of **Linux OS:** in `docker-compose.yml` file, remove comment from
+```angular2html
+user: "1000:1000" 
+```
+_**This solves storage log permission denied problem**_
+
+8. Build and up the docker containers. run `docker compose up -d`
+9. Now, go to the shell of **php** container: run `docker-compose exec php sh`
    1. Now run the following commands
 ```shell
 $ composer install
@@ -57,7 +63,7 @@ $ php artisan jwt:secret
 $ php artisan migrate
 ```
 7. In case of database migrate failure, you need to give database permission specifically
-   1. Go to **db** container shell: run `docker compose exec db sh`
+   1. Go to **db** container shell: run `docker-compose exec db sh`
    2. Enter into mysql shell, run command like this: `mysql -u root -p` Give password.
    3. Check Database exists: `SHOW DATABASES;` You will find the database name there.
    4. Now, grant the user (_in this case **root**_) permissions to access the database
