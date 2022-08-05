@@ -3,28 +3,15 @@
 namespace App\Repositories\IPManage;
 
 use App\Models\IpAddress;
+use App\Repositories\BaseRepositoryEloquent;
 
-class IPAddressRepositoryEloquent implements IPAddressRepositoryInterface
+class IPAddressRepositoryEloquent extends BaseRepositoryEloquent implements IPAddressRepositoryInterface
 {
 
     public function __construct(protected IpAddress $model)
     {
     }
 
-    /**
-     * Get all / paginated data
-     *
-     * @param int|null $resourcePerPage
-     * @param string $orderBy
-     * @param string $sortBy
-     * @return mixed
-     */
-    public function getAll(int|null $resourcePerPage, string $orderBy, string $sortBy): mixed
-    {
-        $query = $this->model::orderBy($sortBy, $orderBy);
-
-        return $resourcePerPage ? $query->paginate($resourcePerPage) : $query->get();
-    }
 
     /**
      * Store new IP address

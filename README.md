@@ -39,7 +39,7 @@
 If you want to use docker to run this project
 1. Install docker in your OS system
 2. After git clone, copy `env.example` and paste as `.env`
-3. Copy `docker-compose.override.yml.example` and paste as `docker-compose.override.yml` in root directory.
+3. Copy `docker-compose.yml.example` and paste as `docker-compose.yml` in root directory.
 4. Update `.env`:
    1. Use **Docker Database configuration** instead of Normal Database configuration
 ```angular2html

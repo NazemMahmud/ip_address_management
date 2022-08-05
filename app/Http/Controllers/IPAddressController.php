@@ -6,46 +6,18 @@ use App\Helpers\Constants;
 use App\Helpers\HttpHandler;
 use App\Http\Requests\IpAddress\IpAddressCreateRequest;
 use App\Http\Requests\IpAddress\IpAddressUpdateRequest;
-use App\Models\IpAddress;
 use App\Repositories\IPManage\IPAddressRepositoryInterface;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use App\Http\Resources\IpAddress\IpAddressResource;
 use App\Http\Resources\IpAddress\IpAddressResourceCollection;
 
-class IPAddressController extends Controller
+class IPAddressController extends BaseController
 {
-    /**
-     * resource class for API data return format
-     * @var string
-     */
-    protected string $resource;
-
-
-    /**
-     * resource collection class for API data return format
-     * @var string
-     */
-    protected string $resourceCollection;
 
     public function __construct(protected IPAddressRepositoryInterface $repository)
     {
         $this->resource = IpAddressResource::class;
         $this->resourceCollection = IpAddressResourceCollection::class;
-    }
-
-    /**
-     * Get all / paginated data
-     * @param Request $request
-     * @return mixed
-     */
-    public function index(Request $request): mixed
-    {
-        $pageOffset = (isset($request->pageOffset)) ? (int)$request->pageOffset : null;
-        $orderBy = $request->orderBy ?? 'DESC';
-        $sortBy = $request->sortBy ?? 'id';
-
-        return new $this->resourceCollection($this->repository->getAll($pageOffset, $orderBy, $sortBy));
     }
 
     /**
