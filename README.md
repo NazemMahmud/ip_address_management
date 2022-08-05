@@ -53,7 +53,7 @@ user: "1000:1000"
 ```
 _**This solves storage log permission denied problem**_
 
-8. Build and up the docker containers. run `docker compose up -d`
+8. Build and up the docker containers. run `docker-compose up -d`
 9. Now, go to the shell of **php** container: run `docker-compose exec php sh`
    1. Now run the following commands
 ```shell
