@@ -566,7 +566,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"var jsonData = JSON.parse(responseBody);\r",
+									"if (jsonData.data && jsonData.data.refresh_token) {\r",
+									"    postman.setEnvironmentVariable('ACCESS_TOKEN', jsonData.data.refresh_token);\r",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -930,6 +933,20 @@
 			"item": [
 				{
 					"name": "Store IP Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"if (jsonData.data && jsonData.data.refresh_token) {\r",
+									"    postman.setEnvironmentVariable('ACCESS_TOKEN', jsonData.data.refresh_token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1196,6 +1213,20 @@
 				},
 				{
 					"name": "Get IP Addresses List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"if (jsonData.data && jsonData.data.refresh_token) {\r",
+									"    postman.setEnvironmentVariable('ACCESS_TOKEN', jsonData.data.refresh_token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1210,7 +1241,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/ip?pageOffset=10",
+							"raw": "{{BASE_URL}}/ip?pageOffset=10&page=2",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -1225,9 +1256,8 @@
 								},
 								{
 									"key": "page",
-									"value": "1",
-									"description": "If not provided, default will be 1",
-									"disabled": true
+									"value": "2",
+									"description": "If not provided, default will be 1"
 								},
 								{
 									"key": "orderBy",
@@ -1333,9 +1363,43 @@
 				},
 				{
 					"name": "Get Single IP Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"if (jsonData.data && jsonData.data.refresh_token) {\r",
+									"    postman.setEnvironmentVariable('ACCESS_TOKEN', jsonData.data.refresh_token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/ip/5",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"ip",
+								"5"
+							]
+						}
 					},
 					"response": [
 						{
@@ -1462,6 +1526,20 @@
 				},
 				{
 					"name": "Update IP Address Label",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"if (jsonData.data && jsonData.data.refresh_token) {\r",
+									"    postman.setEnvironmentVariable('ACCESS_TOKEN', jsonData.data.refresh_token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1488,16 +1566,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"label\": \"BC Server\"\r\n}"
+							"raw": "{\r\n    \"label\": \"local Server\"\r\n}"
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/ip/5",
+							"raw": "{{BASE_URL}}/ip/22",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"ip",
-								"5"
+								"22"
 							]
 						},
 						"description": "Can't update IP, only update label"
@@ -1727,6 +1805,162 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"data\": {\n        \"message\": \"Data updated successfully\"\n    },\n    \"status\": \"success\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Audit Log",
+			"item": [
+				{
+					"name": "Get Audit Logs List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"if (jsonData.data && jsonData.data.refresh_token) {\r",
+									"    postman.setEnvironmentVariable('ACCESS_TOKEN', jsonData.data.refresh_token);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/audit-log?pageOffset=10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"audit-log"
+							],
+							"query": [
+								{
+									"key": "pageOffset",
+									"value": "10",
+									"description": "If not provided, default will be null (i.e. get all data not paginated)"
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"description": "If not provided, default will be 1",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": "DESC",
+									"description": "If not provided, default will be DESC",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "id",
+									"description": "If not provided, default will be id",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success: Get Paginated Data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/audit-log?pageOffset=10",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"audit-log"
+									],
+									"query": [
+										{
+											"key": "pageOffset",
+											"value": "10",
+											"description": "If not provided, default will be null (i.e. get all data not paginated)"
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "If not provided, default will be 1",
+											"disabled": true
+										},
+										{
+											"key": "orderBy",
+											"value": "DESC",
+											"description": "If not provided, default will be DESC",
+											"disabled": true
+										},
+										{
+											"key": "sortBy",
+											"value": "id",
+											"description": "If not provided, default will be id",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.20.2"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Aug 2022 06:32:18 GMT"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 25,\n            \"user_name\": \"\",\n            \"event\": \"created\",\n            \"model_id\": 5,\n            \"model_name\": \"App\\\\Models\\\\User\",\n            \"old_values\": \"[]\",\n            \"new_values\": \"{\\\"name\\\":\\\"Test User 2\\\",\\\"email\\\":\\\"testuser2@gmail.com\\\",\\\"password\\\":\\\"$2y$10$PHEQ6.HHKESsUkBbwKFS.efRNCGdMQXyMrpSdsSHwK9MfA1TK163C\\\",\\\"id\\\":5}\",\n            \"created_at\": \"2022-08-04T14:53:42.000000Z\"\n        },\n        {\n            \"id\": 24,\n            \"user_name\": \"\",\n            \"event\": \"created\",\n            \"model_id\": 4,\n            \"model_name\": \"App\\\\Models\\\\User\",\n            \"old_values\": \"[]\",\n            \"new_values\": \"{\\\"name\\\":\\\"Doe\\\",\\\"email\\\":\\\"doe@gmail.com\\\",\\\"password\\\":\\\"$2y$10$x.wo0eU1spTJs7x6WizypOH49gt2z0kJ5WGqI92ofrXBHOjTqrKsu\\\",\\\"id\\\":4}\",\n            \"created_at\": \"2022-08-04T07:08:01.000000Z\"\n        },\n        {\n            \"id\": 23,\n            \"user_name\": \"Unit Test User 1\",\n            \"event\": \"updated\",\n            \"model_id\": 2,\n            \"model_name\": \"App\\\\Models\\\\IpAddress\",\n            \"old_values\": \"{\\\"label\\\":\\\"dfsdf\\\"}\",\n            \"new_values\": \"{\\\"label\\\":\\\"donejob\\\"}\",\n            \"created_at\": \"2022-08-04T01:33:57.000000Z\"\n        },\n        {\n            \"id\": 22,\n            \"user_name\": \"Unit Test User 1\",\n            \"event\": \"created\",\n            \"model_id\": 16,\n            \"model_name\": \"App\\\\Models\\\\IpAddress\",\n            \"old_values\": \"[]\",\n            \"new_values\": \"{\\\"ip\\\":\\\"111.111.111.111\\\",\\\"label\\\":\\\"load server\\\",\\\"id\\\":16}\",\n            \"created_at\": \"2022-08-04T01:31:51.000000Z\"\n        },\n        {\n            \"id\": 21,\n            \"user_name\": \"\",\n            \"event\": \"created\",\n            \"model_id\": 3,\n            \"model_name\": \"App\\\\Models\\\\User\",\n            \"old_values\": \"[]\",\n            \"new_values\": \"{\\\"name\\\":\\\"John Doe\\\",\\\"email\\\":\\\"jd@gmail.com\\\",\\\"password\\\":\\\"$2y$10$Wi12FlhP1yPCDfinetQFneHU4ltEsqk\\\\/4S\\\\/hGEnK1FkIrflW5OYuW\\\",\\\"id\\\":3}\",\n            \"created_at\": \"2022-08-04T00:41:13.000000Z\"\n        },\n        {\n            \"id\": 20,\n            \"user_name\": \"Unit Test User 1\",\n            \"event\": \"updated\",\n            \"model_id\": 13,\n            \"model_name\": \"App\\\\Models\\\\IpAddress\",\n            \"old_values\": \"{\\\"label\\\":\\\"dns.com\\\"}\",\n            \"new_values\": \"{\\\"label\\\":\\\"gdns.com\\\"}\",\n            \"created_at\": \"2022-08-04T00:33:04.000000Z\"\n        },\n        {\n            \"id\": 19,\n            \"user_name\": \"Unit Test User 1\",\n            \"event\": \"created\",\n            \"model_id\": 15,\n            \"model_name\": \"App\\\\Models\\\\IpAddress\",\n            \"old_values\": \"[]\",\n            \"new_values\": \"{\\\"ip\\\":\\\"1.1.1.1\\\",\\\"label\\\":\\\"toast\\\",\\\"id\\\":15}\",\n            \"created_at\": \"2022-08-04T00:32:36.000000Z\"\n        },\n        {\n            \"id\": 18,\n            \"user_name\": \"Unit Test User 1\",\n            \"event\": \"updated\",\n            \"model_id\": 14,\n            \"model_name\": \"App\\\\Models\\\\IpAddress\",\n            \"old_values\": \"{\\\"label\\\":\\\"google\\\"}\",\n            \"new_values\": \"{\\\"label\\\":\\\"dngr.cc\\\"}\",\n            \"created_at\": \"2022-08-04T00:10:47.000000Z\"\n        },\n        {\n            \"id\": 17,\n            \"user_name\": \"Unit Test User 1\",\n            \"event\": \"created\",\n            \"model_id\": 14,\n            \"model_name\": \"App\\\\Models\\\\IpAddress\",\n            \"old_values\": \"[]\",\n            \"new_values\": \"{\\\"ip\\\":\\\"105.105.105.105\\\",\\\"label\\\":\\\"google\\\",\\\"id\\\":14}\",\n            \"created_at\": \"2022-08-04T00:10:22.000000Z\"\n        },\n        {\n            \"id\": 16,\n            \"user_name\": \"Unit Test User 1\",\n            \"event\": \"created\",\n            \"model_id\": 13,\n            \"model_name\": \"App\\\\Models\\\\IpAddress\",\n            \"old_values\": \"[]\",\n            \"new_values\": \"{\\\"ip\\\":\\\"8.8.8.8\\\",\\\"label\\\":\\\"dns.com\\\",\\\"id\\\":13}\",\n            \"created_at\": \"2022-08-04T00:07:40.000000Z\"\n        }\n    ],\n    \"status\": \"success\",\n    \"links\": {\n        \"first\": \"http://localhost:8000/api/audit-log?page=1\",\n        \"last\": \"http://localhost:8000/api/audit-log?page=3\",\n        \"prev\": null,\n        \"next\": \"http://localhost:8000/api/audit-log?page=2\"\n    },\n    \"meta\": {\n        \"current_page\": 1,\n        \"from\": 1,\n        \"last_page\": 3,\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"&laquo; Previous\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/audit-log?page=1\",\n                \"label\": \"1\",\n                \"active\": true\n            },\n            {\n                \"url\": \"http://localhost:8000/api/audit-log?page=2\",\n                \"label\": \"2\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/audit-log?page=3\",\n                \"label\": \"3\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/audit-log?page=2\",\n                \"label\": \"Next &raquo;\",\n                \"active\": false\n            }\n        ],\n        \"path\": \"http://localhost:8000/api/audit-log\",\n        \"per_page\": 10,\n        \"to\": 10,\n        \"total\": 25\n    }\n}"
 						}
 					]
 				}
